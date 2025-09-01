@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ar">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>10/8/2025</title>
+  <style>
+    :root{--bg:#f5f7fb;--card:#ffffff;--accent:#4f46e5}
+    body{font-family:"Segoe UI",Tahoma,Arial,sans-serif;direction:rtl;background:var(--bg);margin:0;padding:30px;}
+    .container{max-width:720px;margin:0 auto}
+    .card{background:var(--card);padding:22px;border-radius:12px;box-shadow:0 6px 20px rgba(20,20,40,0.06)}
+    h1{margin:0 0 12px;font-size:22px}
+    label{display:block;margin-bottom:6px;color:#334155}
+    input[type=text]{width:100%;padding:10px;border:1px solid #e6e9ef;border-radius:8px;font-size:16px}
+    button{background:var(--accent);color:#fff;border:0;padding:10px 14px;border-radius:10px;font-size:16px;cursor:pointer;margin-top:10px}
+    .result{margin-top:18px;padding:14px;border-radius:10px;font-size:18px}
+    .ok{background:#ecfeff;color:#064e3b;border:1px solid #bbf7d0;text-align:center}
+    .bad{background:#fff1f2;color:#991b1b;border:1px solid #fecaca;text-align:center}
+    .ok img{margin-top:12px;max-width:100%;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,0.1)}
+    .hint{font-size:13px;color:#64748b;margin-top:8px}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h1>تسجيل اسم المستخدم</h1>
+      <form id="nameForm">
+        <label for="username">اكتب اسم المستخدم:</label>
+        <input type="text" id="username" placeholder="مثال: Mostafa" autocomplete="off" required>
+        <button type="submit">تحقق</button>
+      </form>
+
+      <div id="message" class="result" style="display:none"></div>
+
+      <p class="hint">ملاحظة: اسم المستخدم المقبول هو <strong>Mostafa</strong> أو بالعربي <strong>مصطفى</strong> (غير حساس لحالة الأحرف).</p>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('nameForm');
+    const usernameInput = document.getElementById('username');
+    const message = document.getElementById('message');
+    const accepted = ['mostafa', 'مصطفى'];
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const raw = usernameInput.value.trim();
+      if (!raw) return;
+      const normalized = raw.toLowerCase();
+
+      if (accepted.includes(normalized)) {
+        message.style.display = 'block';
+        message.className = 'result ok';
+        message.innerHTML = `
+          <div><strong>بحبك يا مصطفى 💖</strong></div>
+         <div>
+  <a href="https://youtu.be/pckC9FYyIbc?si=hEJb1jy0qpO1PRGX&t=22" target="_blank">
+    <button style="padding:10px 20px; background-color:#4CAF50; color:white; border:none; border-radius:8px; cursor:pointer;">
+      شغل الفيديو 🎥
+    </button>
+  </a>
+</div>
+
+</iframe>
+
+        `;
+      } else {
+        message.style.display = 'block';
+        message.className = 'result bad';
+        message.textContent = 'غير صحيح — اسم المستخدم غير مسموح.';
+      }
+    });
+
+    usernameInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        form.requestSubmit();
+      }
+    });
+  </script>
+</body>
+</html>
